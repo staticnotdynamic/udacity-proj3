@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# Notable changes:
-# 1. A declarative deployment.yaml file was created, instead of specifying --image, as it wasn't possible to specify the imagePullSecrets parameter via the CLI
-# 2. A deployment (not pod) was created
-
 # This is your Docker ID/path
 #dockerpath=staticnotdynamic/udacity-proj3
 #token_name=dockerhub-token
@@ -13,11 +9,9 @@
 # deployment.yaml file was created as to specify imagePullSecrets
 kubectl apply -f deployment.yaml
 
-# Step 3:
 # List kubernetes pods
 kubectl get pods
 
-# Step 4:
 # Forward the container port to a host
 # TODO: write it declarively in the deployment.yaml file
 ## Create a service for a pod identified by type and name specified in deployment.yaml, with container-port of 80 and host port of 8000

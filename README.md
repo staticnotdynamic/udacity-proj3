@@ -1,43 +1,56 @@
 [![Circle CI](https://circleci.com/gh/staticnotdynamic/udacity-proj3.svg?style=svg)]()
 
 
-## Project Overview
+## Overview
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
+A simple project to deploy a machine learning based API on Kubernetes. The machine learning part is handed out as complete, with a pre-trained model and a dataset readily taken from [Kaggle](https://www.kaggle.com/c/boston-housing). The API itself is written in Python [Flask](https://flask.palletsprojects.com/) and is containerized with the Docker container runtime
 
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
+## Running
+A Quick explanation of each file provided:
 
-### Project Tasks
+```
+├── Dockerfile		# commands and directives used by the docker container runtime
+├── Makefile		# targets for "make"
+├── README.md		# project description and getting started
+├── app.py		# main application entrance
+├── deployment.yaml	# description of the deployment needed by Kubernetes
+├── make_prediction.sh	# run this to test a local installation of yours on port 8000 (default)
+├── model_data		# the dataset used by the pre-trained model
+│   ├── boston_housing_prediction.joblib
+│   └── housing.csv
+├── output_txt_files	# output files required for submission
+│   ├── docker_out.txt
+│   └── kubernetes_out.txt
+├── requirements.txt	# used by the python package manager to setup all dependencies
+├── run_docker.sh	# run inside a docker container
+├── run_kubernetes.sh	# run inside a kubernetes cluster
+└── upload_docker.sh	# uploads an image built by running `run_docker.sh` to Docker Hub
+```
 
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
-* Test your project code using linting
-* Complete a Dockerfile to containerize this application
-* Deploy your containerized application using Docker and make a prediction
-* Improve the log statements in the source code for this application
-* Configure Kubernetes and create a Kubernetes cluster
-* Deploy a container using Kubernetes and make a prediction
-* Upload a complete Github repo with CircleCI to indicate that your code has been tested
+The following instructions are provided solely for Linux. First, [setup the environment](#setup_the_environment) with virtualenv, [run](#running_app.py) the project, then in a separate terminal window type:
+```bash
+./make_predictions.sh
+```
+to query the API for a single prediction. The input data format is JSON. See the Kaggle link for explanation of each field
 
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
+### Setup the Environment
 
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
-
----
-
-## Setup the Environment
-
-* Create a virtualenv and activate it
+* Create a Python 3 virtualenv and activate it:
+	* `python3 -m venv venv`
+	* `source venv/bin/activate`
 * Run `make install` to install the necessary dependencies
 
 ### Running `app.py`
 
 1. Standalone:  `python app.py`
-2. Run in Docker:  `./run_docker.sh`
+2. Run in a Docker container:  `./run_docker.sh`
 3. Run in Kubernetes:  `./run_kubernetes.sh`
 
-### Kubernetes Steps
+## Testing
+So far, no actual tests are provided other than linting. Run `make lint` from within the project directory. You need pylint (`pip install pylint`) if you would like to run python liniting tests
 
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+## Notes
+There are tiny deriviations from the expected project outcome mentioned at the course page, namely:
+1. Private image at Docker Hub was used
+2. A declarative `deployment.yaml` file for Kubernetes was created, instead of specifying `--image` parameter, as it wasn't possible to specify the `imagePullSecrets` parameter via the CLI. The parameter is needed to pull the image from the private docker hub repository
+3. A deployment (not pod) was created
