@@ -27,7 +27,7 @@ A Quick explanation of each file provided:
 └── upload_docker.sh	# uploads an image built by running `run_docker.sh` to Docker Hub
 ```
 
-The following instructions are provided solely for Linux. First, [setup the environment](#setup_the_environment) with virtualenv, [run](#running_app.py) the project, then in a separate terminal window type:
+The following instructions are provided solely for Linux. First, [setup the environment](#setup-the-environment) with virtualenv, [run](#running-apppy) the project, then in a separate terminal window type:
 ```bash
 ./make_predictions.sh
 ```
