@@ -4,7 +4,7 @@
 # 3. use a production-grade WSGI server like gunicorn
 FROM python:3.7-slim-buster
 
-LABEL maintainer="Test maintainer <test@mailserver.org>"
+LABEL maintainer="staticnotdynamic <staticnotdynamic@users.noreply.github.com>"
 
 # Create a working directory
 WORKDIR /ml-app

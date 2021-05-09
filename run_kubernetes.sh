@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
+# Notable changes:
+# 1. A declarative deployment.yaml file was created, instead of specifying --image, as it wasn't possible to specify the imagePullSecrets parameter via the CLI
+# 2. A deployment (not pod) was created
 
-# Step 1:
 # This is your Docker ID/path
 #dockerpath=staticnotdynamic/udacity-proj3
 #token_name=dockerhub-token
 
-# Step 2
 # Run the Docker Hub container with kubernetes
 # Pulling images from a private repository: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 # deployment.yaml file was created as to specify imagePullSecrets
