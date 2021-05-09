@@ -1,0 +1,26 @@
+# TODO: hard-coded values
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udacity-proj3-deployment
+  labels:
+    name: udacity-proj3
+    type: api
+spec:
+  replicas: 1
+  selector:     # how will the deployment find its pods ?
+    matchLabels:        # should satisfy the labels provided by pods
+      name: udacity-proj3
+  template:
+    metadata:
+      name: boston-api
+      labels:   # pods labels. creates selectors for pods
+        name: udacity-proj3
+    spec:
+      containers:       # containers running on this pod (only one here)
+      - name: udacity-proj3
+        image: staticnotdynamic/udacity-proj3
+        # ports:        # TODO: does this expose ports ?
+        #   - containerPort: 80
+      imagePullSecrets:
+      - name: dockerhub-token       # TODO
